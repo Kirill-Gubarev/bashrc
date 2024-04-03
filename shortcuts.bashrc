@@ -1,11 +1,17 @@
-#---shortcuts---
+#BEGIN---shortcuts---
 alias edge="start msedge"
 alias github="edge https://github.com"
-alias n++="start notepad++"
 
+#---cd---
 alias cd_projects="cd $PATH_projects"
 alias cd_desktop="cd $PATH_desktop"
 alias cd_bash_scripts="cd $PATH_bash_scripts"
+
+#---n++---
+alias n++="start notepad++"
+alias n++_bashrc="n++ $PATH_bash_scripts/.bashrc"
+#END---shortcuts---
+
 #---functions---
 function book(){
 	if [ "$#" -eq 0 ]; then
