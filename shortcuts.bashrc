@@ -1,22 +1,13 @@
 #BEGIN---shortcuts---
 alias edge="start msedge"
-alias github="edge https://github.com"
+alias gh="edge https://github.com"
 
 #---cd---
-function cd_(){
-	if [ "$#" -eq 0 ]; then
-		return
-	fi
-	for arg in "$@"; do
-		cd "$arg"
-	done
-}
-alias cd_projects="cd_ $PATH_projects"
-alias cd_desktop="cd_ $PATH_desktop"
-alias cd_bash_scripts="cd_ $PATH_bash_scripts"
+alias cd_projects="cd $PATH_projects"		
+alias cd_desktop="cd $PATH_desktop"
+alias cd_bash_scripts="cd $PATH_bash_scripts"
 
-
-#---n++---
+#---notepa++---
 alias n++="start notepad++"
 alias n++_bashrc="n++ $PATH_bash_scripts/.bashrc"
 #END---shortcuts---

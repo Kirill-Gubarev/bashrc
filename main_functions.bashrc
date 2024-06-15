@@ -5,8 +5,8 @@ function mcd() { #make directory and go to it
 	fi
 	
 	for arg in $@; do
-		mkdir -p $arg
-		cd $arg
+		mkdir -p "$arg"
+		cd "$arg"
 	done
 }
 function cd_n(){ #repeat cd n times
@@ -16,7 +16,7 @@ function cd_n(){ #repeat cd n times
 	fi
 	
 	if [ $# -eq 1 ]; then
-		cd $1
+		cd "$1"
 		return
 	fi
 	
@@ -25,7 +25,7 @@ function cd_n(){ #repeat cd n times
 		return
 	fi
 	for ((i=0; i<$2; i++)); do
-	  cd $1
+		cd "$1"
 	done
 }
 function cmake_b(){ #build this project
@@ -40,7 +40,18 @@ function cmake_b(){ #build this project
 	cd ..
 }
 function rm_td(){ #remove this directory
-local path=$PWD
-cd ..
-rm -r "$path"
+	local path="$PWD"
+	cd ..
+	rm -r "$path"
+}
+function run() {
+	local countRuns=1
+	if ! [ -z "$1" ]; then
+		countRuns="$1"
+	fi
+	for ((i=0;i<countRuns;i++)); do
+		for exe in build/Debug/*.exe; do
+			start "$exe"
+		done
+	done
 }

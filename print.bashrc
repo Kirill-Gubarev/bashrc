@@ -59,7 +59,7 @@ function printC(){
 		fi
 	done
 	color+="m"
-	if [ $nextLineB == 1 ]; then
+	if [ "$nextLineB" == 1 ]; then
 		echo -e -n "$color$str\e[${clearColor}m"
 	else
 		echo -e "$color$str\e[${clearColor}m"
