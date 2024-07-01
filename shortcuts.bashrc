@@ -5,11 +5,11 @@ alias gh="edge https://github.com"
 #---cd---
 alias cd_projects="cd $PATH_projects"		
 alias cd_desktop="cd $PATH_desktop"
-alias cd_bash_scripts="cd $PATH_bash_scripts"
+alias cd_bashrc="cd $PATH_bashrc"
 
-#---notepa++---
+#---notepad++---
+alias npp="start notepad++"
 alias n++="start notepad++"
-alias n++_bashrc="n++ $PATH_bash_scripts/.bashrc"
 #END---shortcuts---
 
 #---functions---

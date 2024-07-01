@@ -9,7 +9,7 @@ function mcd() { #make directory and go to it
 		cd "$arg"
 	done
 }
-function cd_n(){ #repeat cd n times
+function cdn(){ #repeat cd n times
 	if [ $# -eq 0 ]; then
 		printC "Some monkey didn't specify the arguments" -redF
 		return
@@ -28,30 +28,61 @@ function cd_n(){ #repeat cd n times
 		cd "$1"
 	done
 }
-function cmake_b(){ #build this project
-	mcd build
-	if [ $# -eq 1 ]; then
-		if [ $1 == "-r" ]; then #rebuild
-			cmake ..
-			shift
-		fi
-	fi
-	cmake --build .
-	cd ..
-}
-function rm_td(){ #remove this directory
+function rmthis(){ #remove this directory
 	local path="$PWD"
 	cd ..
 	rm -r "$path"
 }
-function run() {
-	local countRuns=1
-	if ! [ -z "$1" ]; then
-		countRuns="$1"
+function cmakeb(){ #build this project
+	local Brun=0 #BOOLLEAN
+	mcd build #mkdir build && cd build
+	if [ $# -gt 0 ]; then
+		while [ $# -gt 0 ]; do
+			case $1 in
+			
+				#REBUILD
+			  "-R") 
+				cmake ..
+				;;
+				
+				#RUN
+				"-r") 
+				Brun=1
+				if [[ $2 =~ ^[0-9]+$ ]]; then
+					Brun=$2
+				fi
+				shift
+				;;
+				
+				#ERROR
+			  *)
+				echo "$1 is the wrong argument"
+				;;
+				
+			esac
+			shift
+		done
 	fi
+	cmake --build .
+	if [ $? -eq 1 ]; then Brun = 0; fi
+	cd ..
+	run $Brun
+}
+
+function run() { #run this project
+	local countRuns=1
+	
+	#if not empty
+	if [ -n "$1" ]; then countRuns="$1"; fi
+	#if received 0, or less
+	if [ $countRuns -le 0 ]; then return; fi
+	
 	for ((i=0;i<countRuns;i++)); do
 		for exe in build/Debug/*.exe; do
 			start "$exe"
 		done
 	done
+}
+function runsln() { #run visual studio
+	start "build/"*.sln
 }
