@@ -16,13 +16,13 @@ if [[ -z "$isDefined" ]]; then
 fi
 
 #---SOURCES---
-source "$PATH_bashrc/print.bashrc"
-source "$PATH_bashrc/main_functions.bashrc"
-source "$PATH_bashrc/shortcuts.bashrc"
-source "$PATH_bashrc/monkeys.bashrc"
+source "$PATH_bashrc/print.sh"
+source "$PATH_bashrc/main_functions.sh"
+source "$PATH_bashrc/shortcuts.sh"
+source "$PATH_bashrc/monkeys.sh"
 
 #---COMMANDS FOR BASH---
-function s_bashrc(){
+function source_bashrc(){
 	clear
 	source "${PATH_bash_scripts}/.bashrc"
 }

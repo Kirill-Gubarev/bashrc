@@ -1,4 +1,5 @@
-function mcd() { #make directory and go to it
+#make directory and go to it
+function mcd() { 
 	if [ $# -eq 0 ]; then
 		printC "Some monkey didn't specify the folder name" -redF
 		return
@@ -9,31 +10,16 @@ function mcd() { #make directory and go to it
 		cd "$arg"
 	done
 }
-function cdn(){ #repeat cd n times
-	if [ $# -eq 0 ]; then
-		printC "Some monkey didn't specify the arguments" -redF
-		return
-	fi
-	
-	if [ $# -eq 1 ]; then
-		cd "$1"
-		return
-	fi
-	
-	if ! [[ "$2" =~ ^[0-9]+$ ]]; then
-		printC "you need to specify a number" -redF
-		return
-	fi
-	for ((i=0; i<$2; i++)); do
-		cd "$1"
-	done
-}
-function rmthis(){ #remove this directory
+
+#remove this directory
+function rmthis(){ 
 	local path="$PWD"
 	cd ..
 	rm -r "$path"
 }
-function cmakeb(){ #build this project
+
+#build this project
+function cmakeb(){ 
 	local Brun=0 #BOOLLEAN
 	mcd build #mkdir build && cd build
 	if [ $# -gt 0 ]; then
@@ -69,7 +55,8 @@ function cmakeb(){ #build this project
 	run $Brun
 }
 
-function run() { #run this project
+#run this project
+function run() { 
 	local countRuns=1
 	
 	#if not empty
@@ -83,6 +70,31 @@ function run() { #run this project
 		done
 	done
 }
-function runsln() { #run visual studio
+
+#run visual studio
+function runsln() { 
 	start "build/"*.sln
+}
+
+#Create project template
+function project_template(){
+
+	#exit if the git has been initialized
+	if [ -d ".git" ]; then
+		echo -e "\e[33mgit has already been initialized\e[0m"
+		return
+	fi
+
+	git init
+	mkdir -p src build external
+	echo -e "build\nexternal">.gitignore
+	
+	#copy the main.cpp template
+	cp "$PATH_bashrc/templates/main.cpp" "./src"
+
+	#copy the CmakeLists.txt template and insert the project name	
+	cp "$PATH_bashrc/templates/CmakeLists.txt" .
+	sed -i "s/#\[\[NAME\]\]/$(basename $PWD)/g" "CmakeLists.txt"
+	
+	echo -e "\e[34mThe template is ready\e[0m"
 }

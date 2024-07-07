@@ -1,7 +1,6 @@
 #BEGIN---shortcuts---
-alias edge="start msedge"
-alias gh="edge https://github.com"
-
+alias github="start msedge https://github.com"
+alias typingclub="start msedge https://www.edclub.com/sportal/" 
 #---cd---
 alias cd_projects="cd $PATH_projects"		
 alias cd_desktop="cd $PATH_desktop"
@@ -37,7 +36,7 @@ function book(){
 	local bookExistsB=1 #boolean
 	for arg in "$@"; do
 		if [ -e "${PATH_books}/${arg}" ]; then
-			edge "${PATH_books}/${arg}"
+			start msdge "${PATH_books}/${arg}"
 		else
 			printC "The book \"${arg}\" does not exist, monkey" -redF
 			bookExistsB=0
