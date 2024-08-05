@@ -3,28 +3,18 @@ shopt -s dotglob
 #---PATHS---
 if [[ -z "$isDefined" ]]; then
 	eval readonly PATH_bashrc="$(dirname "${BASH_SOURCE}")"
-	eval readonly PATH_dev="C:/dev"
-	eval readonly PATH_books="C:/dev/books/reading_now"
 	eval readonly PATH_projects="C:/dev/projects"
 	eval readonly PATH_desktop="~/onedrive/desktop"
-	
-	eval readonly Pdev="$PATH_dev"
-	eval readonly Pbooks="$PATH_books"
-	eval readonly Pprojects="$PATH_projects"
-	eval readonly Pdesktop="$PATH_desktop"
-	eval readonly Pbashrc="$PATH_bashrc"
 fi
 
 #---SOURCES---
-source "$PATH_bashrc/print.sh"
-source "$PATH_bashrc/main_functions.sh"
+source "$PATH_bashrc/functions.sh"
 source "$PATH_bashrc/shortcuts.sh"
-source "$PATH_bashrc/monkeys.sh"
 
-#---COMMANDS FOR BASH---
+#---BASH wrapper functions---
 function source_bashrc(){
 	clear
-	source "${PATH_bash_scripts}/.bashrc"
+	source "${PATH_bashrc}/.bashrc"
 }
 function restart(){
 	start git-bash
@@ -34,6 +24,7 @@ function restart(){
 #---EXPORTS---
 export BOOST_ROOT=C:/dev/libs/boost_1_84_0
 
+#prohibiting redefinition of variables
 if [[ -z "$isDefined" ]]; then
 	readonly isDefined="Already defined"
 fi

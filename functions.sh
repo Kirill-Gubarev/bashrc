@@ -1,14 +1,18 @@
-#make directory and go to it
-function mcd() { 
-	if [ $# -eq 0 ]; then
-		printC "Some monkey didn't specify the folder name" -redF
+#make and change directory
+function mcd() {
+	if [ -z "$1" ]; then
+		echo -e "\e[31mthe directory name is not specified\e[0m"
 		return
 	fi
-	
-	for arg in $@; do
-		mkdir -p "$arg"
-		cd "$arg"
-	done
+
+	if [ -d "$1" ]; then
+		echo -e "\e[33mthe $1 directory already exists\e[0m"
+		cd "$1"
+		return
+	fi
+ 
+	mkdir "$1"
+	cd "$1"
 }
 
 #remove this directory
@@ -50,7 +54,7 @@ function cmakeb(){
 		done
 	fi
 	cmake --build .
-	if [ $? -eq 1 ]; then Brun = 0; fi
+	if [ $? -eq 1 ]; then Brun=0; fi
 	cd ..
 	run $Brun
 }
@@ -59,9 +63,7 @@ function cmakeb(){
 function run() { 
 	local countRuns=1
 	
-	#if not empty
 	if [ -n "$1" ]; then countRuns="$1"; fi
-	#if received 0, or less
 	if [ $countRuns -le 0 ]; then return; fi
 	
 	for ((i=0;i<countRuns;i++)); do
